@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>stateful component</title>
+</head>
+<body>
+  <div id="container"></div>
+
+  <script src="../assets/react.min.js"></script>
+  <script src="../assets/JSXTransformer.js"></script>
+  <script type="text/jsx">
+    var Timer = React.createClass({
+      getInitialState: function() {
+        return {secondsElapsed: 0};
+      },
+      tick: function() {
+        this.setState({secondsElapsed: this.state.secondsElapsed + 1});
+      },
+      componentDidMount: function() {
+        this.interval = setInterval(this.tick, 1000);
+      },
+      componentWillUnMount: function() {
+        clearInterval(this.interval);
+      },
+      render: function() {
+        return (
+          <div>Seconds Elapsed: {this.state.secondsElapsed}</div>
+        );
+      }
+    });
+    React.render(<Timer />, document.getElementById('container'));
+  </script>
+</body>
+</html>
